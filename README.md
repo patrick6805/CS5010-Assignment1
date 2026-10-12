@@ -19,8 +19,12 @@ This project is an interactive Python command-line application for creating and 
 ```text
 Book-Encyclopedia/
 ├── main.py
-├── Book.py
-├── Encyclopedia.py
+|-- classes
+      |-- Book.py
+      ├── Encyclopedia.py
+|-- tests
+      |-- test_parsing.py
+      ├── parsing_test_cases.csv
 └── README.md
 ```
 
