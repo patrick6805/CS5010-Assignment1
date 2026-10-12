@@ -1,0 +1,31 @@
+case_id,function,description,inputs_json,expected_return_json,expected_output_contains
+1,read_book_type,accept regular book choice,"[""1""]","""1""",
+2,read_book_type,reject invalid choice then accept encyclopedia,"[""3"", ""2""]","""2""",Invalid choice
+3,read_title,accept a normal title,"[""The Hobbit""]","""The Hobbit""",
+4,read_title,reject whitespace-only title,"[""   "", ""Dune""]","""Dune""",Title cannot be empty
+5,read_title,reject title over 100 characters,"[""TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"", ""Short title""]","""Short title""",Title cannot exceed 100 characters
+6,read_author,accept author with spaces and punctuation,"[""J. R. R. Tolkien""]","""J. R. R. Tolkien""",
+7,read_author,reject empty author,"[""   "", ""Mary Shelley""]","""Mary Shelley""",Author cannot be empty
+8,read_author,reject author without letters,"[""12345"", ""Plato""]","""Plato""",Author must contain at least one letter
+9,read_author,reject author with invalid characters,"[""John123"", ""Jane Doe""]","""Jane Doe""",Author contains invalid characters
+10,read_author,reject author over 100 characters,"[""AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"", ""A. Writer""]","""A. Writer""",Author cannot exceed 100 characters
+11,read_publisher,accept publisher with punctuation,"[""Pearson Education, Inc.""]","""Pearson Education, Inc.""",
+12,read_publisher,reject empty publisher,"[""   "", ""Wiley & Sons""]","""Wiley & Sons""",Publisher cannot be empty
+13,read_publisher,reject publisher over 100 characters,"[""PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"", ""Acme Press""]","""Acme Press""",Publisher cannot exceed 100 characters
+14,read_publication_date,accept hyphen date,"[""2024-10-11""]","""2024-10-11""",
+15,read_publication_date,accept slash date and normalize it,"[""2024/10/11""]","""2024-10-11""",
+16,read_publication_date,reject wrong format then accept valid date,"[""10/11/2024"", ""2024-10-11""]","""2024-10-11""",Invalid date format
+17,read_publication_date,reject impossible calendar date,"[""2024-02-30"", ""2024-02-29""]","""2024-02-29""",Invalid calendar date
+18,read_publication_date,reject invalid leap day,"[""2023-02-29"", ""2024-02-29""]","""2024-02-29""",Invalid calendar date
+19,read_edition,accept first edition,"[""1st""]","""1st""",
+20,read_edition,accept 11th exception,"[""11th""]","""11th""",
+21,read_edition,accept 21st,"[""21st""]","""21st""",
+22,read_edition,reject incorrect suffix,"[""22th"", ""22nd""]","""22nd""",Invalid suffix
+23,read_edition,reject malformed edition,"[""second"", ""2nd""]","""2nd""",Invalid edition format. Enter an edition from 1st to 9999th.
+24,read_edition,reject zero edition,"[""0th"", ""1st""]","""1st""",Invalid edition format. Enter an edition from 1st to 9999th.
+25,read_num_pages,accept positive integer,"[""250""]",250,
+26,read_num_pages,reject non-integer then accept valid integer,"[""many"", ""250""]",250,Please enter a valid whole number
+27,read_num_pages,reject zero and negative pages,"[""0"", ""-5"", ""250""]",250,Number of pages must be positive
+28,read_num_pages,reject page count above maximum,"[""100001"", ""1000""]",1000,"Number of pages cannot exceed 100,000"
+29,read_continue_choice,accept yes regardless of case,"[""Y""]","""y""",
+30,read_continue_choice,reject invalid continuation answer,"[""maybe"", ""n""]","""n""",Invalid response

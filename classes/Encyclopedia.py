@@ -1,4 +1,4 @@
-from Book import Book
+from classes.Book import Book
 
 class Encyclopedia(Book):
    def __init__(self, title, author, publisher, publication_date, edition, pages):

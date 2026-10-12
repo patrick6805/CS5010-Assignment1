@@ -1,5 +1,5 @@
-from Book import Book
-from Encyclopedia import Encyclopedia
+from classes.Book import Book
+from classes.Encyclopedia import Encyclopedia
 from datetime import datetime
 import re
 
