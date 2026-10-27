@@ -22,9 +22,6 @@ Book-Encyclopedia/
 |-- classes
       |-- Book.py
       ├── Encyclopedia.py
-|-- tests
-      |-- test_parsing.py
-      ├── parsing_test_cases.csv
 └── README.md
 ```
 
@@ -84,9 +81,9 @@ The program checks user input before constructing the objects. The expected rule
 
 | Field | Validation |
 |---|---|
-| Title | Must not be empty and must be no longer than 100 characters. |
-| Author | Must not be empty, must contain at least one letter, and may contain letters, spaces, apostrophes, periods, and hyphens; maximum 100 characters. |
-| Publisher | Must not be empty and must be no longer than 100 characters. |
+| Title | Must be no longer than 100 characters. |
+| Author | Must contain at least one letter, and may contain letters, spaces, apostrophes, periods, and hyphens; maximum 100 characters. |
+| Publisher | Must be no longer than 100 characters. |
 | Publication date | Accepts `YYYY-MM-DD` or `YYYY/MM/DD`, and checks that the date exists on the calendar. |
 | Edition | Requires a number from 1 to 9999 followed by the correct ordinal suffix (`st`, `nd`, `rd`, or `th`). |
 | Page count | Must be an integer from 1 to 100,000. |
