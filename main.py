@@ -16,14 +16,12 @@ def read_book_type():
 
         print("Invalid choice. Please select 1 or 2.")
 
-
 def read_title():
     while True:
         title = input("Enter the title: ").strip()
 
         if not title: 
-            print("Title cannot be empty.")
-            continue
+            return None
             
         if len(title) > 100:
             print("Title cannot exceed 100 characters.")
@@ -31,14 +29,12 @@ def read_title():
 
         return title
 
-
 def read_author():
     while True:
         author = input("Enter the author: ").strip()
 
         if not author:
-            print("Author cannot be empty.")
-            continue
+            return None
 
         if not any(char.isalpha() for char in author):
             print("Author must contain at least one letter.")
@@ -58,14 +54,12 @@ def read_author():
 
         return author
 
-
 def read_publisher():
     while True:
         publisher = input("Enter the publisher: ").strip()
 
         if not publisher: 
-            print("Publisher cannot be empty.")
-            continue
+            return None
 
         if len(publisher) > 100:
             print("Publisher cannot exceed 100 characters.")
@@ -78,6 +72,9 @@ def read_publication_date():
         date_text = input(
             "Enter the publication date (YYYY-MM-DD or YYYY/MM/DD): "
         ).strip()
+
+        if not date_text:
+            return None
 
         # Normalize slashes to hyphens
         date_text = date_text.replace("/", "-")
@@ -98,10 +95,12 @@ def read_publication_date():
         except ValueError:
             print("Invalid calendar date. Please enter a real date.")
 
-
 def read_edition():
     while True:
         edition = input("Enter the edition (e.g., 1st, 2nd, 3rd): ").strip()
+
+        if not edition:
+            return None
 
         # Check that the input contains digits followed by an ordinal suffix
         if not re.fullmatch(r"[1-9]\d{0,3}(st|nd|rd|th)", edition, re.IGNORECASE):
@@ -129,11 +128,15 @@ def read_edition():
 
         print(f"Invalid suffix. Edition #{number} should end in '{expected_suffix}'.")
 
-
 def read_num_pages():
     while True:
+        page_text = input("Enter the number of pages: ").strip()
+
+        if not page_text:
+            return None
+            
         try:
-            num_pages = int(input("Enter the number of pages: "))
+            num_pages = int(page_text)
 
             if num_pages <= 0:
                 print("Number of pages must be positive.")
@@ -148,7 +151,6 @@ def read_num_pages():
         except ValueError:
             print("Please enter a valid whole number.")
 
-
 def read_continue_choice():
     while True:
         choice = input(
@@ -159,7 +161,6 @@ def read_continue_choice():
             return choice
 
         print("Invalid response. Please enter Y or N.")
-
 
 def main():
     continue_input = "y"
@@ -172,22 +173,30 @@ def main():
         publisher = read_publisher()
         publication_date = read_publication_date()
 
+        book_args = {}
+        if title:
+            book_args["title"] = title
+        if author:
+            book_args["author"] = author
+        if publisher:
+            book_args["publisher"] = publisher
+        if publication_date:
+            book_args["publication_date"] = publication_date
+
         if choice == "1":
-            book = Book(
-                title, author, publisher, publication_date
-            )
+            book = Book(**book_args)
 
         else:
             edition = read_edition()
             num_pages = read_num_pages()
 
+            if edition:
+                book_args["edition"] = edition
+            if num_pages:
+                book_args["pages"] = num_pages
+
             book = Encyclopedia(
-                title,
-                author,
-                publisher,
-                publication_date,
-                edition,
-                num_pages
+                **book_args
             )
 
         print()
@@ -196,7 +205,6 @@ def main():
         continue_input = read_continue_choice()
 
     print("Goodbye!")
-
 
 if __name__ == "__main__":
     try:

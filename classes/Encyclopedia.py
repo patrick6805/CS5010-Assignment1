@@ -1,7 +1,7 @@
 from classes.Book import Book
 
 class Encyclopedia(Book):
-   def __init__(self, title, author, publisher, publication_date, edition, pages):
+   def __init__(self, title="Unknown", author="Unknown", publisher="OSU", publication_date="2000/01/01", edition="1st", pages=0):
       Book.__init__(self, title, author, publisher, publication_date)
       self.edition = edition
       self.pages = pages
